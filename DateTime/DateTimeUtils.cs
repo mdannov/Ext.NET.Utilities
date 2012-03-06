@@ -1,10 +1,11 @@
-﻿/********
- * @version   : 1.3.0
- * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2012-02-29
- * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
- * @license   : See license.txt and http://www.ext.net/license/. 
- ********/
+﻿/*
+ * @version: 2.0.0
+ * @author: Ext.NET, Inc. http://www.ext.net/
+ * @date: 2012-03-05
+ * @copyright: Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @license: See license.txt and http://www.ext.net/license/. 
+ * @website: http://www.ext.net/
+ */
 
 using System;
 using System.Globalization;
@@ -14,6 +15,9 @@ using System.Web;
 
 namespace Ext.Net.Utilities
 {
+    /// <summary>ssssssssssssssssssssssssssss
+    /// 
+    /// </summary>
     public static class DateTimeUtils
     {
         /// <summary>
@@ -135,6 +139,11 @@ namespace Ext.Net.Utilities
             return final.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public static string ConvertNetToPHP(string format)
         {
             return DateTimeUtils.ConvertNetToPHP(format, CultureInfo.CurrentUICulture);
@@ -144,6 +153,7 @@ namespace Ext.Net.Utilities
         /// Accepts a Unix/PHP date string format and returns a valid .NET date format
         /// </summary>
         /// <param name="format">The .NET format string</param>
+        /// <param name="culture"></param>
         /// <returns>The format string converted to PHP format specifiers</returns>
         public static string ConvertNetToPHP(string format, CultureInfo culture)
         {
@@ -192,7 +202,7 @@ namespace Ext.Net.Utilities
                         final.Append("l");
                         break;
                     case "M$":
-                        final.Append("M$");
+                        final.Append("MS");
                         break;
                     case "MMMM":
                         final.Append("F");
@@ -261,10 +271,19 @@ namespace Ext.Net.Utilities
             return string.Concat("new Date(", javaScriptTicks.ToString(CultureInfo.InvariantCulture), offset, ")");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static DateTimeFormatInfo ClientDateTimeFormatInfo()
         {
             try
             {
+                if (HttpContext.Current == null || HttpContext.Current.Request.UserLanguages == null || HttpContext.Current.Request.UserLanguages.Length == 0)
+                {
+                    return CultureInfo.InvariantCulture.DateTimeFormat;
+                }
+
                 return CultureInfo.CreateSpecificCulture(HttpContext.Current.Request.UserLanguages[0]).DateTimeFormat;
             }
             catch

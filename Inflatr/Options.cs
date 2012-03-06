@@ -1,16 +1,24 @@
-﻿/********
- * @version   : 1.3.0
- * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2012-02-29
- * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
- * @license   : See license.txt and http://www.ext.net/license/. 
- ********/
+﻿/*
+ * @version: 2.0.0
+ * @author: Ext.NET, Inc. http://www.ext.net/
+ * @date: 2012-03-05
+ * @copyright: Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @license: See license.txt and http://www.ext.net/license/. 
+ * @website: http://www.ext.net/
+ */
 
 namespace Ext.Net.Utilities.Inflatr
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Options
     {
         private int wrap = 80;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int Wrap
         {
             get
@@ -24,6 +32,10 @@ namespace Ext.Net.Utilities.Inflatr
         }
 
         private string indent = "  ";
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public string Indent
         {
             get
@@ -37,6 +49,10 @@ namespace Ext.Net.Utilities.Inflatr
         }
 
         private int level = 0;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public int Level
         {
             get
@@ -49,6 +65,10 @@ namespace Ext.Net.Utilities.Inflatr
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public Options Clone()
         {
             return new Options { Indent = this.Indent, Wrap = this.Wrap, Level = this.Level };

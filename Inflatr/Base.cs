@@ -1,10 +1,11 @@
-﻿/********
- * @version   : 1.3.0
- * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2012-02-29
- * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
- * @license   : See license.txt and http://www.ext.net/license/. 
- ********/
+﻿/*
+ * @version: 2.0.0
+ * @author: Ext.NET, Inc. http://www.ext.net/
+ * @date: 2012-03-05
+ * @copyright: Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @license: See license.txt and http://www.ext.net/license/. 
+ * @website: http://www.ext.net/
+ */
 
 using System;
 using System.Text;
@@ -12,20 +13,46 @@ using System.Text.RegularExpressions;
 
 namespace Ext.Net.Utilities.Inflatr
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class Base
     {
         private Options options;
+
+        /// <summary>
+        /// 
+        /// </summary>
         protected int index = 0;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         protected string input = "";
+        
+        /// <summary>
+        /// 
+        /// </summary>
         protected int c = 0;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         protected StringBuilder r;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Base()
         {
             this.options = new Options();
             this.r = this.Indent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
         public Base(Options options) : this()
         {
             if (options != null)
@@ -35,6 +62,9 @@ namespace Ext.Net.Utilities.Inflatr
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Options Options
         {
             get
@@ -51,11 +81,21 @@ namespace Ext.Net.Utilities.Inflatr
         public abstract string Inflate(string input);
 
         private Regex escapeRe = new Regex(@"([.*+?^${}()|[\]\/\\])", RegexOptions.Compiled);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
         protected string Escape(string pattern)
         {
             return escapeRe.Replace(pattern, "\\$1");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected StringBuilder Indent()
         {
             StringBuilder sb = new StringBuilder();
@@ -67,11 +107,22 @@ namespace Ext.Net.Utilities.Inflatr
             return sb;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
         protected int LastIndexOf(Regex pattern)
         {
             return this.LastIndexOf(pattern, null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         protected int LastIndexOf(Regex pattern, string input)
         {
             if (input.IsEmpty())
@@ -90,6 +141,12 @@ namespace Ext.Net.Utilities.Inflatr
             return -1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
         protected bool After(Regex pattern, Regex start)
         {
             int i = this.LastIndexOf(start);
@@ -102,6 +159,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="strings"></param>
         protected void Append(params string[] strings)
         {
             foreach (string item in strings)
@@ -114,12 +175,22 @@ namespace Ext.Net.Utilities.Inflatr
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pat"></param>
+        /// <returns></returns>
         protected string Peek(string pat)
         {
             Match m = new Regex("^" + pat, RegexOptions.Multiline).Match(this.input, this.index);
             return m.Success ? m.Groups[0].Value : null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pat"></param>
+        /// <returns></returns>
         protected string Scan(string pat)
         {
             string m = this.Peek(pat);
@@ -132,12 +203,20 @@ namespace Ext.Net.Utilities.Inflatr
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected bool NextChar()
         {
             this.Append(this.Scan("(\n|.)"));
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected bool WhiteSpace()
         {
             if (this.Scan("\\s+").IsNotEmpty())
@@ -151,6 +230,11 @@ namespace Ext.Net.Utilities.Inflatr
 
         private Regex newLineRe1 = new Regex("\\Z", RegexOptions.Compiled);
         private Regex newLineRe2 = new Regex("\\S", RegexOptions.Compiled);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected string NewLine()
         {
             int x = this.LastIndexOf(this.newLineRe1, this.r.ToString());
@@ -166,6 +250,11 @@ namespace Ext.Net.Utilities.Inflatr
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pat"></param>
+        /// <returns></returns>
         protected string ScanUntil(string pat)
         {
             Regex re = new Regex("^((?:(?!"+pat+").)*)"+pat, RegexOptions.Multiline);
@@ -180,11 +269,22 @@ namespace Ext.Net.Utilities.Inflatr
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <returns></returns>
         protected string Between(string start)
         {
             return this.Between(start, start);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="finish"></param>
+        /// <returns></returns>
         protected string Between(string start, string finish)
         {
             string m = this.Scan(start);

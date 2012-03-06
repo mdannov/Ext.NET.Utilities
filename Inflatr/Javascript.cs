@@ -1,20 +1,36 @@
-﻿/********
- * @version   : 1.3.0
- * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2012-02-29
- * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
- * @license   : See license.txt and http://www.ext.net/license/. 
- ********/
+﻿/*
+ * @version: 2.0.0
+ * @author: Ext.NET, Inc. http://www.ext.net/
+ * @date: 2012-03-05
+ * @copyright: Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @license: See license.txt and http://www.ext.net/license/. 
+ * @website: http://www.ext.net/
+ */
 
 using System.Text.RegularExpressions;
 
 namespace Ext.Net.Utilities.Inflatr
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Javascript : Base
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public const string KEYWORDS = "(function|continue|default|finally|export|return|switch|import|delete|throw|const|while|catch|break|void|case|with|this|else|for|try|var|new|do|in|if)\\W";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const string OPERATORS = "(instanceof|typeof|>>>=|===|<<=|>>=|>>>|!==|!=|>=|\\*=|<=|\\+\\+|\\-=|==|&&|>>|<<|/=|\\|\\||\\+=|\\^=|\\|=|&=|\\-\\-|\\||&|\\^|>|<|!|=|\\?|:|%|/|\\*|\\-|\\+)";
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override string Inflate(string input)
         {
             this.input = input; 
@@ -27,6 +43,10 @@ namespace Ext.Net.Utilities.Inflatr
             return new Regex("\\s*$").Replace(this.r.ToString(), "");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Comment()
         {
             string m = this.Between("//", "\n");
@@ -48,6 +68,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool String()
         {
             string m = this.Between("'");
@@ -71,6 +95,11 @@ namespace Ext.Net.Utilities.Inflatr
 
         private Regex afterPatternRegex = new Regex("^(\\d|\\w|\\$|_\\))", RegexOptions.Compiled);
         private Regex afterStartRegex = new Regex("(\\:|\\S)", RegexOptions.Compiled);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Regex()
         {
             if (!this.After(this.afterPatternRegex, this.afterStartRegex))
@@ -86,6 +115,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Operator()
         {
             string m = this.Scan(Javascript.OPERATORS);
@@ -98,11 +131,19 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Keyword()
         {
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool OpenBlock()
         {
             if (this.Scan("\\{").IsNotEmpty())
@@ -115,6 +156,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool CloseBlock()
         {
             if(this.Scan("\\}").IsNotEmpty())
@@ -132,6 +177,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Comma()
         {
             if (this.Scan(",").IsNotEmpty())
@@ -148,6 +197,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Parens()
         {
             if (this.Scan("\\(\\s*\\)").IsNotEmpty())
@@ -169,6 +222,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Eos()
         {
             if (this.Scan(";").IsNotEmpty())
@@ -184,6 +241,10 @@ namespace Ext.Net.Utilities.Inflatr
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool Eol()
         {
             return this.Scan("\n").IsNotEmpty();

@@ -1,10 +1,11 @@
-﻿/********
- * @version   : 1.3.0
- * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2012-02-29
- * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
- * @license   : See license.txt and http://www.ext.net/license/. 
- ********/
+﻿/*
+ * @version: 2.0.0
+ * @author: Ext.NET, Inc. http://www.ext.net/
+ * @date: 2012-03-05
+ * @copyright: Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @license: See license.txt and http://www.ext.net/license/. 
+ * @website: http://www.ext.net/
+ */
 
 using System;
 using System.Collections;
@@ -20,11 +21,34 @@ using System.Web.UI;
 namespace Ext.Net.Utilities
 {
     /// <summary>
-    /// String Utilities
+    /// 
     /// </summary>
-    [Description("")]
     public static class StringUtils
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="test"></param>
+        /// <param name="valueIfTrue"></param>
+        /// <returns></returns>
+        public static string If(this string text, string test, string valueIfTrue)
+        {
+            return text.If<string>(delegate() { return text == test; }, valueIfTrue, text);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="test"></param>
+        /// <param name="valueIfTrue"></param>
+        /// <returns></returns>
+        public static string IfNot(this string text, string test, string valueIfTrue)
+        {
+            return text.IfNot<string>(delegate() { return text == test; }, valueIfTrue, text);
+        }
+
         /// <summary>
         /// Replaces all occurrences of System.String in the oldValues String Array, with
         /// another specified System.String of newValue.
@@ -71,12 +95,10 @@ namespace Ext.Net.Utilities
             return instance;
         }
 
+        // http://james.newtonking.com/archive/2008/03/29/formatwith-2-0-string-formatting-with-named-variables.aspx
         /// <summary>
-        /// Format the string with the arguments (args parameter).
+        /// Format the string with the args.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
-        [Description("Format the string with the arguments (args parameter).")]
         public static string FormatWith(this string format, params object[] args)
         {
             if (args == null)
@@ -93,6 +115,7 @@ namespace Ext.Net.Utilities
         /// <param name="format"></param>
         /// <param name="provider"></param>
         /// <param name="args"></param>
+        /// <returns></returns>
         public static string FormatWith(this string format, IFormatProvider provider, params object[] args)
         {
             Verify.IsNotNull(format, "format");
@@ -173,7 +196,7 @@ namespace Ext.Net.Utilities
         }
 
         /// <summary>
-        /// Add the args strings the source text string.
+        /// Add the text string to the source string.
         /// </summary>
         public static string ConcatWith(this string instance, string text)
         {
@@ -411,6 +434,7 @@ namespace Ext.Net.Utilities
         /// <summary>
         /// Converts the first character of each word to Uppercase. Example: "the lazy dog" returns "The Lazy Dog"
         /// </summary>
+        /// <param name="ci"></param>
         /// <param name="text">The text to convert to sentence case</param>
         public static string ToTitleCase(this string text, CultureInfo ci)
         {
@@ -552,7 +576,7 @@ namespace Ext.Net.Utilities
                 return text;
             }
 
-            return new System.String(c, totalLength - text.Length) + text;
+            return new String(c, totalLength - text.Length) + text;
         }
 
         /// <summary>
@@ -578,7 +602,7 @@ namespace Ext.Net.Utilities
                 return text;
             }
 
-            return string.Concat(text, new System.String(c, totalLength - text.Length));
+            return string.Concat(text, new String(c, totalLength - text.Length));
         }
 
         /// <summary>
@@ -1057,7 +1081,7 @@ namespace Ext.Net.Utilities
 
             decoder.GetChars(bytes, 0, bytes.Length, chars, 0);
 
-            return new System.String(chars);
+            return new String(chars);
         }
 
         /// <summary>
@@ -1069,7 +1093,7 @@ namespace Ext.Net.Utilities
         {
             byte[] bytes = new byte[text.Length];
             bytes = Encoding.UTF8.GetBytes(text);
-            
+
             return Convert.ToBase64String(bytes);
         }
 
