@@ -20,7 +20,7 @@ using System.Web.UI;
 namespace Ext.Net.Utilities
 {
     /// <summary>
-    /// 
+    /// String Utilities
     /// </summary>
     [Description("")]
     public static class StringUtils
