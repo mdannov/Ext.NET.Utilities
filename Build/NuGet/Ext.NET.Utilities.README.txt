@@ -1,6 +1,6 @@
 ﻿Project      : Ext.NET.Utilties
-Version      : 1.3.0
-Last Updated : 2012-02-29
+Version      : 2.0.0
+Last Updated : 2012-03-05
 
 --------------------------------------------------------------------------
    DESCRIPTION
