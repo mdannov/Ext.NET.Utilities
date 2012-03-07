@@ -1,5 +1,7 @@
 bin/
 obj/
+Ext.Net.Utilities/obj/
+Ext.Net.Utilities/bin/
 *.suo
 *.dll
 *.user
