@@ -20,7 +20,7 @@ namespace Ext.Net.Utilities
 
         public static bool HasControls(Control control)
         {
-            return control != null && control.HasControls();
+            return control != null && (control.HasControls() || control.Controls.Count > 0);
         }
 
         public static Control FindControl(Control seed, string id)
