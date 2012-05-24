@@ -4,9 +4,7 @@ Last Updated : 2012-05-24
 
 # Ext.NET.Utilities
 
-A .NET Utility Class Library for Ext.NET.
-
-[http://www.ext.net/](http://www.ext.net/)
+A .NET Utility Class Library for [Ext.NET](http://www.ext.net/).
 
 Install using [NuGet](http://nuget.org/packages/Ext.NET.Utilities).
 
