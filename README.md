@@ -8,7 +8,8 @@ A .NET Utility Class Library for Ext.NET.
 
 [http://www.ext.net/](http://www.ext.net/)
 
-Available to install using [http://nuget.org/packages/Ext.NET.Utilities](NuGet).
+Install using [NuGet](http://nuget.org/packages/Ext.NET.Utilities).
+
     Install-Package Ext.NET.Utilities
 
 ## Release History
