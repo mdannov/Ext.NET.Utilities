@@ -5,3 +5,4 @@ Ext.Net.Utilities/bin/
 *.suo
 *.dll
 *.user
+*.vsdoc
