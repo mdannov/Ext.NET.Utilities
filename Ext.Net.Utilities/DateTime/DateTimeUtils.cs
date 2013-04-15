@@ -181,7 +181,7 @@ namespace Ext.Net.Utilities
                     break;
             }
 
-            Match m = Regex.Match(format, @"(\\)?(dd?d?d?|M\$|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|S)|.", RegexOptions.IgnoreCase);
+            Match m = Regex.Match(format, @"(\\)?(dd?d?d?|M\$|MS|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|S)|.", RegexOptions.IgnoreCase);
 
             while (m.Success)
             {
@@ -202,6 +202,7 @@ namespace Ext.Net.Utilities
                         final.Append("l");
                         break;
                     case "M$":
+                    case "MS":
                         final.Append("MS");
                         break;
                     case "MMMM":
