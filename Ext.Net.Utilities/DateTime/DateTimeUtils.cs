@@ -1,8 +1,8 @@
 ﻿/*
- * @version   : 2.2.0
+ * @version   : 2.0.1
  * @author    : Ext.NET, Inc. http://www.ext.net/
- * @date      : 2013-03-20
- * @copyright : Copyright (c) 2007-2013, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
+ * @date      : 2012-05-24
+ * @copyright : Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.
  * @license   : See license.txt and http://www.ext.net/license/. 
  * @website   : http://www.ext.net/
  */
@@ -181,7 +181,7 @@ namespace Ext.Net.Utilities
                     break;
             }
 
-            Match m = Regex.Match(format, @"(\\)?(dd?d?d?|M\$|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|S)|.", RegexOptions.IgnoreCase);
+            Match m = Regex.Match(format, @"(\\)?(dd?d?d?|M\$|MS|MM?M?M?|yy?y?y?|hh?|HH?|mm?|ss?|tt?|S)|.", RegexOptions.IgnoreCase);
 
             while (m.Success)
             {
@@ -202,6 +202,7 @@ namespace Ext.Net.Utilities
                         final.Append("l");
                         break;
                     case "M$":
+                    case "MS":
                         final.Append("MS");
                         break;
                     case "MMMM":
@@ -260,15 +261,17 @@ namespace Ext.Net.Utilities
         /// <returns>JavaScript Date as string</returns>
         public static string DateNetToJs(DateTime date)
         {
-            DateTimeOffset value = new DateTimeOffset(date);
-            DateTimeOffset utcDateTime = value.ToUniversalTime();
-            long javaScriptTicks = (utcDateTime.Ticks - (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks) / (long)10000;
+            if (date.Equals(DateTime.MinValue))
+            {
+                return "null";
+            }
+            else
+            {
+                string template = (date.TimeOfDay == new TimeSpan(0, 0, 0)) ? "{0},{1},{2}" : "{0},{1},{2},{3},{4},{5},{6}";
 
-            string offset;
-            TimeSpan utcOffset = value.Offset;
-            offset = utcOffset.Hours.ToString("+00;-00", CultureInfo.InvariantCulture) + utcOffset.Minutes.ToString("00;00", CultureInfo.InvariantCulture);
-
-            return string.Concat("new Date(", javaScriptTicks.ToString(CultureInfo.InvariantCulture), offset, ")");
+                return string.Concat("new Date(", string.Format(template, date.Year, date.Month - 1, date.Day,
+                                  date.Hour, date.Minute, date.Second, date.Millisecond), ")");
+            }
         }
 
         /// <summary>
