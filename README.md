@@ -1,6 +1,6 @@
 ﻿Project      : Ext.NET.Utilties
-Version      : 2.0.1
-Last Updated : 2012-05-24
+Version      : 2.2.0
+Last Updated : 2013-03-20
 
 # Ext.NET.Utilities
 
@@ -11,6 +11,16 @@ Install using [NuGet](http://nuget.org/packages/Ext.NET.Utilities).
     Install-Package Ext.NET.Utilities
 
 ## Release History
+
+**2013-03-20 (geoffreymcgill)**
+
+- Release v2.2.0
+
+
+**2012-11-19 (geoffreymcgill)**
+
+- Release v2.1.0
+
 
 **2012-05-24 (geoffreymcgill)**
 
