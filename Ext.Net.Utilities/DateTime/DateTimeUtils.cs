@@ -261,19 +261,16 @@ namespace Ext.Net.Utilities
         /// <returns>JavaScript Date as string</returns>
         public static string DateNetToJs(DateTime date)
         {
-            if (date.Equals(DateTime.MinValue))
-            {
-                return "null";
-            }
-            else
-            {
-                string template = (date.TimeOfDay == new TimeSpan(0, 0, 0)) ? "{0},{1},{2}" : "{0},{1},{2},{3},{4},{5},{6}";
-
-                return string.Concat("new Date(", string.Format(template, date.Year, date.Month - 1, date.Day,
-                                  date.Hour, date.Minute, date.Second, date.Millisecond), ")");
-            }
+    		// Date does not have value
+			if( date.Equals( DateTime.MinValue ) )
+				return "null";
+			// Date does not contain time portion
+			if( date.Equals( date.Date ) )
+				return string.Format( "new Date({0},{1},{2})", date.Year, date.Month - 1, date.Day );
+			// Date contains time portion
+            return string.Format("new Date({0},{1},{2},{3},{4},{5},{6})", date.Year, date.Month - 1, date.Day,
+                                  date.Hour, date.Minute, date.Second, date.Millisecond );
         }
-
         /// <summary>
         /// 
         /// </summary>
